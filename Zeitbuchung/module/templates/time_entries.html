@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Zeiteinträge
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-3">Zeiteinträge</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Datum</th>
+                <th>Anstempeln</th>
+                <th>Ausstempeln</th>
+                <th>Beschreibung</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.date.strftime('%d.%m.%Y') }}</td>
+                <td>{{ entry.clockIn | format_timedelta }}</td>
+                <td>{{ entry.clockOut | format_timedelta }}</td>
+                <td>{{ entry.description | safe }}</td>
+                <td>{{ entry.name }}</td>
+                <td>
+                    <a class="btn btn-light" href="/update_time_entry/{{ entry.id }}">Bearbeiten</a>
+                    <a class="btn btn-danger" href="/delete_time_entries/{{ entry.id }}">Löschen</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

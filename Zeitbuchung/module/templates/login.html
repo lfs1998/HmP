@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <form method="POST" class="form-register" action="{{ url_for('login') }}">
+            <h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Benutzer</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Passwort</label>
+                <input type="text" id="password" name="password" class="form-control" required aria-describedby="passwordHelpBlock">
+            </div>
+            <button id="login_button" type="submit" class="btn btn-success" style="width: 20%;">Anmelden</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <form method="POST" class="form-register" action="{{ url_for('register') }}">
+            <h1 class="h3 mb-3 font-weight-normal">Registrierung</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Benutzer</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="e_mail" class="form-label">E-Mail</label>
+                <input type="email" id="e_mail" name="e_mail" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password_1" class="form-label">Passwort</label>
+                <input type="password" id="password_1" name="password_1" class="form-control" required aria-describedby="passwordHelpBlock">
+            </div>
+
+            <div class="mb-3">
+                <label for="password_2" class="form-label">Passwort wiederholen</label>
+                <input type="password" id="password_2" name="password_2" class="form-control" required aria-describedby="passwordHelpBlock">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="width: 20%;">Registrieren</button>
+        </form>
+    </div>
+{% endblock %}
